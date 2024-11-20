@@ -3,18 +3,11 @@ kind: Instance
 metadata:
   annotations:
     meta.upbound.io/example-id: ec2/v1beta2/instance
-  labels:
-    testing.upbound.io/example-name: my-app
   name: my-app
 spec:
   forProvider:
     ami: ami-07b068f843ec78e72
     instanceType: t2.micro
-    networkInterface:
-      - deviceIndex: 0
-        networkInterfaceIdSelector:
-          matchLabels:
-            testing.upbound.io/example-name: my-app
     region: eu-west-3
     tags:
       demo: charlasCV
