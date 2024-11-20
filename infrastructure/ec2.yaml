@@ -6,8 +6,8 @@ metadata:
   name: my-app
 spec:
   forProvider:
-    ami: ami-07b068f843ec78e72
-    instanceType: t2.micro
+    ami: ami-01eb696891a3b3bcf
+    instanceType: t3.micro
     region: eu-west-3
     tags:
       demo: charlasCV
