@@ -3,13 +3,14 @@ kind: Instance
 metadata:
   annotations:
     meta.upbound.io/example-id: ec2/v1beta2/instance
-  name: my-app
+  name: crossplane-demo-ec2
 spec:
   forProvider:
     ami: ami-01eb696891a3b3bcf
     instanceType: t3.micro
     region: eu-west-3
     tags:
+      Name: crossplane-demo-ec2
       demo: charlasCV
       author: SM
       type: crossplane-argocd
