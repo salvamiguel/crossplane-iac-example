@@ -19,7 +19,7 @@ source:
 For each example you have a README file that explains the Infrastructure to be deployed.
 
 > [!WARNING]
-> Some of the Infrastructure definitions in the examples folders may incour in some charges by AWS. Please delete the associated ArgoCD app to destroy all infrastructure as follows:
+> Some of the Infrastructure definitions in the examples folders may incur in some charges by AWS. Please delete the associated ArgoCD app to destroy all infrastructure as follows:
 > ```bash
 > kubectl delete -f infrastructure/my-app.yaml
 > ```
