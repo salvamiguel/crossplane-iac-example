@@ -176,22 +176,23 @@ spec:
       - author: SM
       - type: crossplane-argocd
 ---
-# apiVersion: elbv2.aws.upbound.io/v1beta1
-# kind: LoadBalancer
-# metadata:
-#   name: application-load-balancer
-#   namespace: crossplane-system
-# spec:
-#   forProvider:
-#     name: application-load-balancer
-#     type: application
-#     securityGroups:
-#       - {{ .metadata.name }}-alb-security-group
-#     tags:
-#       demo: charlasCV
-#       author: SM
-#       type: crossplane-argocd
-# ---
+apiVersion: elbv2.aws.upbound.io/v1beta1
+kind: LB
+metadata:
+  name: application-load-balancer
+  namespace: crossplane-system
+spec:
+  forProvider:
+    name: application-load-balancer
+    type: application
+    region: eu-west-3
+    securityGroupRefs:
+      name: alb-security-group
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
 # apiVersion: elbv2.aws.upbound.io/v1beta1
 # kind: Listener
 # metadata:
