@@ -118,6 +118,7 @@ spec:
           <p style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Congratulations! You have just deployed your first s3 static website using Crossplane + ArgoCD!</p>
       </body>
       </html>
+    contentType: text/html
     region: eu-west-3
     tags:
       demo: charlasCV
@@ -151,6 +152,7 @@ spec:
           <p style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Congratulations! You have just deployed your first s3 static website using Crossplane + ArgoCD!</p>
       </body>
       </html>
+    contentType: text/html
     region: eu-west-3
     tags:
       demo: charlasCV
