@@ -1,4 +1,68 @@
 apiVersion: ec2.aws.upbound.io/v1beta2
+kind: SecurityGroup
+metadata:
+  name: crossplane-demo-sg
+spec:
+  forProvider:
+    description: "Allow HTTP and HTTPS"
+    name: crossplane-demo-sg
+    region: eu-west-3
+    tags:
+      Name: crossplane-demo-sg
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+    ingress:
+      - fromPort: 80
+        toPort: 80
+        protocol: tcp
+        cidrBlocks: ["0.0.0.0/0"]
+      - fromPort: 443
+        toPort: 443
+        protocol: tcp
+        cidrBlocks: ["0.0.0.0/0"]
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: ingress-http
+spec:
+  forProvider:
+    fromPort: 80
+    protocol: tcp
+    region: eu-west-3
+    securityGroupIdSelector:
+      matchLabels:
+        Name: crossplane-demo-sg
+    toPort: 80
+    type: ingress
+    tags:
+      Name: ingress-http
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: ingress-https
+spec:
+  forProvider:
+    fromPort: 80
+    protocol: tcp
+    region: eu-west-3
+    securityGroupIdSelector:
+      matchLabels:
+        Name: crossplane-demo-sg
+    toPort: 80
+    type: ingress
+    tags:
+      Name: ingress-https
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta2
 kind: Instance
 metadata:
   annotations:
@@ -14,3 +78,82 @@ spec:
       demo: charlasCV
       author: SM
       type: crossplane-argocd
+---
+apiVersion: autoscaling.aws.upbound.io/v1beta1
+kind: LaunchConfiguration
+metadata:
+  name: crossplane-demo-launch-config
+spec:
+  forProvider:
+    imageId: ami-01eb696891a3b3bcf
+    instanceType: t3.micro
+    region: eu-west-3
+    tags:
+      Name: crossplane-demo-ec2
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: autoscaling.aws.upbound.io/v1beta1
+kind: AutoScalingGroup
+metadata:
+  name: crossplane-demo-asg
+spec:
+  forProvider:
+    region: eu-west-3
+    launchConfigurationName: crossplane-demo-launch-config
+    minSize: 2
+    maxSize: 5
+    desiredCapacity: 2
+    tags:
+      Name: crossplane-demo-asg
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: elbv2.aws.upbound.io/v1beta1
+kind: LB
+metadata:
+  name: crossplane-demo-alb
+spec:
+  forProvider:
+    name: crossplane-demo-alb
+    region: eu-west-3
+    scheme: internet-facing
+    loadBalancerAttributes:
+      - key: idle_timeout.timeout_seconds
+        value: "60"
+    securityGroups:
+      - crossplane-demo-sg
+    subnets:
+      - subnet-12345678
+      - subnet-87654321
+    listeners:
+      - port: 80
+        protocol: HTTP
+        defaultActions:
+          - type: forward
+            targetGroupArn: arn:aws:elasticloadbalancing:eu-west-3:123456789012:targetgroup/crossplane-demo-tg/abcdef123456
+---
+apiVersion: elbv2.aws.upbound.io/v1beta1
+kind: TargetGroup
+metadata:
+  name: crossplane-demo-tg
+spec:
+  forProvider:
+    name: crossplane-demo-tg
+    region: eu-west-3
+    port: 80
+    protocol: HTTP
+    vpcId: vpc-12345678
+    healthCheck:
+      intervalSeconds: 30
+      path: /
+      port: traffic-port
+      protocol: HTTP
+      timeoutSeconds: 5
+      healthyThresholdCount: 5
+      unhealthyThresholdCount: 2
+    targetType: instance
+    targets:
+      - id: crossplane-demo-asg

@@ -1,0 +1,154 @@
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  labels:
+    testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
+  name: salvamiguel-crossplane-argocd-bucket
+spec:
+  forProvider:
+    region: eu-west-3
+    forceDestroy: true
+    tags:
+      Name: salvamiguel-crossplane-argocd-bucket
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketPublicAccessBlock
+metadata:
+  annotations:
+    meta.upbound.io/example-id: s3/v1beta1/bucketpublicaccessblock
+  labels:
+    testing.upbound.io/example-name: crossplane-argocd-bucket-public-access
+  name: crossplane-argocd-bucket-public-access
+spec:
+  forProvider:
+    blockPublicAcls: false
+    blockPublicPolicy: false
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
+    region: eu-west-3
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketWebsiteConfiguration
+metadata:
+  name: crossplane-argocd-bucket-website-configuration
+spec:
+  forProvider:
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
+    errorDocument:
+      - key: error.html
+    indexDocument:
+      - suffix: index.html
+    region: eu-west-3
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: s3/v1beta1/bucketpolicy
+  labels:
+    testing.upbound.io/example-name: crossplane-argocd-bucket-policy
+  name: crossplane-argocd-bucket-policy
+spec:
+  forProvider:
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
+    policy: >
+      {
+          "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Sid": "PublicReadGetObject",
+                  "Effect": "Allow",
+                  "Principal": "*",
+                  "Action": [
+                      "s3:GetObject"
+                  ],
+                  "Resource": [
+                      "arn:aws:s3:::salvamiguel-crossplane-argocd-bucket/*"
+                  ]
+              }
+          ]
+      }
+    region: eu-west-3
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketObject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: s3/v1beta1/bucketobject
+  labels:
+    testing.upbound.io/example-name: object
+  name: object
+spec:
+  forProvider:
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
+    key: index.html
+    source: html/index.html
+    region: eu-west-3
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketObject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: s3/v1beta1/bucketobject
+  labels:
+    testing.upbound.io/example-name: object
+  name: object
+spec:
+  forProvider:
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
+    key: error.html
+    source: html/error.html
+    region: eu-west-3
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: BucketObject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: s3/v1beta1/bucketobject
+  labels:
+    testing.upbound.io/example-name: object
+  name: object
+spec:
+  forProvider:
+    bucketSelector:
+      matchLabels:
+        testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
+    key: img/diagram.html
+    source: img/diagram.png
+    region: eu-west-3
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
