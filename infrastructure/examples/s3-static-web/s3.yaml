@@ -114,7 +114,7 @@ spec:
       </head>
       <body>
           <h1 style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Hello IES Juan de Garay!</h1>
-          <img src="/img/diagram.png" width="600px" style="display: block;margin: auto;">
+          <img src="diagram.png" width="600px" style="display: block;margin: auto;">
           <p style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Congratulations! You have just deployed your first s3 static website using Crossplane + ArgoCD!</p>
       </body>
       </html>
@@ -153,28 +153,6 @@ spec:
       </body>
       </html>
     contentType: text/html
-    region: eu-west-3
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: s3.aws.upbound.io/v1beta1
-kind: BucketObject
-metadata:
-  annotations:
-    meta.upbound.io/example-id: s3/v1beta1/bucketobject
-  labels:
-    testing.upbound.io/example-name: object
-  name: file-diagram.png
-spec:
-  forProvider:
-    bucketSelector:
-      matchLabels:
-        testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
-    key: img/diagram.html
-    source: ../img/diagram.png
-    contentType: image/png
     region: eu-west-3
     tags:
       demo: charlasCV
