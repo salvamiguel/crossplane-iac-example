@@ -1,4 +1,3 @@
----
 apiVersion: ec2.aws.upbound.io/v1beta1
 kind: SecurityGroup
 metadata:
@@ -11,196 +10,196 @@ spec:
       demo: charlasCV
       author: SM
       type: crossplane-argocd
----
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: SecurityGroup
-metadata:
-  name: ec2-security-group
-  namespace: crossplane-system
-spec:
-  forProvider:
-    description: EC2 Security Group
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: SecurityGroupRule
-metadata:
-  name: alb-ingress-http
-  namespace: crossplane-system
-spec:
-  forProvider:
-    type: ingress
-    fromPort: 80
-    toPort: 80
-    ipProtocol: tcp
-    cidrBlocks: 
-      - "0.0.0.0/0"
-    securityGroupIdRef:
-      name: alb-security-group
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: SecurityGroupRule
-metadata:
-  name: alb-ingress-https
-  namespace: crossplane-system
-spec:
-  forProvider:
-    type: ingress
-    fromPort: 443
-    toPort: 443
-    ipProtocol: tcp
-    cidrBlocks: 
-      - "0.0.0.0/0"
-    securityGroupIdRef:
-      name: alb-security-group
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: SecurityGroupRule
-metadata:
-  name: ec2-ingress-http
-  namespace: crossplane-system
-spec:
-  forProvider:
-    type: ingress
-    fromPort: 80
-    toPort: 80
-    ipProtocol: tcp
-    sourceSecurityGroupIdRef:
-      name: alb-security-group
-    securityGroupIdRef:
-      name: ec2-security-group
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: SecurityGroupRule
-metadata:
-  name: ec2-ingress-https
-  namespace: crossplane-system
-spec:
-  forProvider:
-    type: ingress
-    fromPort: 443
-    toPort: 443
-    ipProtocol: tcp
-    sourceSecurityGroupIdRef:
-      name: alb-security-group
-    securityGroupIdRef:
-      name: ec2-security-group
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: SecurityGroupRule
-metadata:
-  name: ec2-egress-all
-  namespace: crossplane-system
-spec:
-  forProvider:
-    type: egress
-    fromPort: 0
-    toPort: 0
-    ipProtocol: "-1"
-    cidrBlocks: 
-      - "0.0.0.0/0"
-    securityGroupIdRef:
-      name: ec2-security-group
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: LaunchTemplate
-metadata:
-  name: crossplane-ec2-launch-template
-  namespace: crossplane-system
-spec:
-  forProvider:
-    launchTemplateName: crossplane-ec2-launch-template
-    versionDescription: "Initial version"
-    launchTemplateData:
-      instanceType: t3.micro
-      imageId: resolve:ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64
-      securityGroupIds:
-        - {{ .metadata.name }}-ec2-security-group
-      userData: |
-        #!/bin/bash
-        yum install -y httpd
-        echo "<h1>Hello from $(hostname)</h1>" > /var/www/html/index.html
-        systemctl start httpd
-        systemctl enable httpd
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: autoscaling.aws.upbound.io/v1beta1
-kind: AutoScalingGroup
-metadata:
-  name: crossplane-ec2-auto-scaling-group
-  namespace: crossplane-system
-spec:
-  forProvider:
-    autoScalingGroupName: crossplane-ec2-auto-scaling-group
-    minSize: 2
-    maxSize: 5
-    desiredCapacity: 2
-    launchTemplate:
-      launchTemplateName: crossplane-ec2-launch-template
-      version: "$Latest"
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: elbv2.aws.upbound.io/v1beta1
-kind: LoadBalancer
-metadata:
-  name: application-load-balancer
-  namespace: crossplane-system
-spec:
-  forProvider:
-    name: application-load-balancer
-    type: application
-    securityGroups:
-      - {{ .metadata.name }}-alb-security-group
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: elbv2.aws.upbound.io/v1beta1
-kind: Listener
-metadata:
-  name: alb-listener-http
-  namespace: crossplane-system
-spec:
-  forProvider:
-    loadBalancerArn: {{ .metadata.name }}-application-load-balancer
-    port: 80
-    protocol: HTTP
-    defaultActions:
-      - type: forward
-        forwardConfig:
-          targetGroups:
-            - targetGroupArn: {{ .metadata.name }}-ec2-target-group
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: SecurityGroup
+# metadata:
+#   name: ec2-security-group
+#   namespace: crossplane-system
+# spec:
+#   forProvider:
+#     description: EC2 Security Group
+#     tags:
+#       demo: charlasCV
+#       author: SM
+#       type: crossplane-argocd
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: SecurityGroupRule
+# metadata:
+#   name: alb-ingress-http
+#   namespace: crossplane-system
+# spec:
+#   forProvider:
+#     type: ingress
+#     fromPort: 80
+#     toPort: 80
+#     ipProtocol: tcp
+#     cidrBlocks:
+#       - "0.0.0.0/0"
+#     securityGroupIdRef:
+#       name: alb-security-group
+#     tags:
+#       demo: charlasCV
+#       author: SM
+#       type: crossplane-argocd
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: SecurityGroupRule
+# metadata:
+#   name: alb-ingress-https
+#   namespace: crossplane-system
+# spec:
+#   forProvider:
+#     type: ingress
+#     fromPort: 443
+#     toPort: 443
+#     ipProtocol: tcp
+#     cidrBlocks:
+#       - "0.0.0.0/0"
+#     securityGroupIdRef:
+#       name: alb-security-group
+#     tags:
+#       demo: charlasCV
+#       author: SM
+#       type: crossplane-argocd
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: SecurityGroupRule
+# metadata:
+#   name: ec2-ingress-http
+#   namespace: crossplane-system
+# spec:
+#   forProvider:
+#     type: ingress
+#     fromPort: 80
+#     toPort: 80
+#     ipProtocol: tcp
+#     sourceSecurityGroupIdRef:
+#       name: alb-security-group
+#     securityGroupIdRef:
+#       name: ec2-security-group
+#     tags:
+#       demo: charlasCV
+#       author: SM
+#       type: crossplane-argocd
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: SecurityGroupRule
+# metadata:
+#   name: ec2-ingress-https
+#   namespace: crossplane-system
+# spec:
+#   forProvider:
+#     type: ingress
+#     fromPort: 443
+#     toPort: 443
+#     ipProtocol: tcp
+#     sourceSecurityGroupIdRef:
+#       name: alb-security-group
+#     securityGroupIdRef:
+#       name: ec2-security-group
+#     tags:
+#       demo: charlasCV
+#       author: SM
+#       type: crossplane-argocd
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: SecurityGroupRule
+# metadata:
+#   name: ec2-egress-all
+#   namespace: crossplane-system
+# spec:
+#   forProvider:
+#     type: egress
+#     fromPort: 0
+#     toPort: 0
+#     ipProtocol: "-1"
+#     cidrBlocks:
+#       - "0.0.0.0/0"
+#     securityGroupIdRef:
+#       name: ec2-security-group
+#     tags:
+#       demo: charlasCV
+#       author: SM
+#       type: crossplane-argocd
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: LaunchTemplate
+# metadata:
+#   name: crossplane-ec2-launch-template
+#   namespace: crossplane-system
+# spec:
+#   forProvider:
+#     launchTemplateName: crossplane-ec2-launch-template
+#     versionDescription: "Initial version"
+#     launchTemplateData:
+#       instanceType: t3.micro
+#       imageId: resolve:ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64
+#       securityGroupIds:
+#         - {{ .metadata.name }}-ec2-security-group
+#       userData: |
+#         #!/bin/bash
+#         yum install -y httpd
+#         echo "<h1>Hello from $(hostname)</h1>" > /var/www/html/index.html
+#         systemctl start httpd
+#         systemctl enable httpd
+#     tags:
+#       demo: charlasCV
+#       author: SM
+#       type: crossplane-argocd
+# ---
+# apiVersion: autoscaling.aws.upbound.io/v1beta1
+# kind: AutoScalingGroup
+# metadata:
+#   name: crossplane-ec2-auto-scaling-group
+#   namespace: crossplane-system
+# spec:
+#   forProvider:
+#     autoScalingGroupName: crossplane-ec2-auto-scaling-group
+#     minSize: 2
+#     maxSize: 5
+#     desiredCapacity: 2
+#     launchTemplate:
+#       launchTemplateName: crossplane-ec2-launch-template
+#       version: "$Latest"
+#     tags:
+#       demo: charlasCV
+#       author: SM
+#       type: crossplane-argocd
+# ---
+# apiVersion: elbv2.aws.upbound.io/v1beta1
+# kind: LoadBalancer
+# metadata:
+#   name: application-load-balancer
+#   namespace: crossplane-system
+# spec:
+#   forProvider:
+#     name: application-load-balancer
+#     type: application
+#     securityGroups:
+#       - {{ .metadata.name }}-alb-security-group
+#     tags:
+#       demo: charlasCV
+#       author: SM
+#       type: crossplane-argocd
+# ---
+# apiVersion: elbv2.aws.upbound.io/v1beta1
+# kind: Listener
+# metadata:
+#   name: alb-listener-http
+#   namespace: crossplane-system
+# spec:
+#   forProvider:
+#     loadBalancerArn: {{ .metadata.name }}-application-load-balancer
+#     port: 80
+#     protocol: HTTP
+#     defaultActions:
+#       - type: forward
+#         forwardConfig:
+#           targetGroups:
+#             - targetGroupArn: {{ .metadata.name }}-ec2-target-group
+#     tags:
+#       demo: charlasCV
+#       author: SM
+#       type: crossplane-argocd
