@@ -1,3 +1,4 @@
+---
 apiVersion: ec2.aws.upbound.io/v1beta1
 kind: SecurityGroup
 metadata:
@@ -6,23 +7,6 @@ metadata:
 spec:
   forProvider:
     description: ALB Security Group
-    ingress:
-      - fromPort: 80
-        toPort: 80
-        ipProtocol: tcp
-        cidrBlocks:
-          - "0.0.0.0/0"
-      - fromPort: 443
-        toPort: 443
-        ipProtocol: tcp
-        cidrBlocks:
-          - "0.0.0.0/0"
-    egress:
-      - fromPort: 0
-        toPort: 0
-        ipProtocol: "-1"
-        cidrBlocks:
-          - "0.0.0.0/0"
     tags:
       demo: charlasCV
       author: SM
@@ -36,23 +20,106 @@ metadata:
 spec:
   forProvider:
     description: EC2 Security Group
-    ingress:
-      - fromPort: 80
-        toPort: 80
-        ipProtocol: tcp
-        securityGroups: 
-          - {{ .metadata.name }}-alb-security-group
-      - fromPort: 443
-        toPort: 443
-        ipProtocol: tcp
-        securityGroups: 
-          - {{ .metadata.name }}-alb-security-group
-    egress:
-      - fromPort: 0
-        toPort: 0
-        ipProtocol: "-1"
-        cidrBlocks: 
-          - "0.0.0.0/0"
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: alb-ingress-http
+  namespace: crossplane-system
+spec:
+  forProvider:
+    type: ingress
+    fromPort: 80
+    toPort: 80
+    ipProtocol: tcp
+    cidrBlocks: 
+      - "0.0.0.0/0"
+    securityGroupIdRef:
+      name: alb-security-group
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: alb-ingress-https
+  namespace: crossplane-system
+spec:
+  forProvider:
+    type: ingress
+    fromPort: 443
+    toPort: 443
+    ipProtocol: tcp
+    cidrBlocks: 
+      - "0.0.0.0/0"
+    securityGroupIdRef:
+      name: alb-security-group
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: ec2-ingress-http
+  namespace: crossplane-system
+spec:
+  forProvider:
+    type: ingress
+    fromPort: 80
+    toPort: 80
+    ipProtocol: tcp
+    sourceSecurityGroupIdRef:
+      name: alb-security-group
+    securityGroupIdRef:
+      name: ec2-security-group
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: ec2-ingress-https
+  namespace: crossplane-system
+spec:
+  forProvider:
+    type: ingress
+    fromPort: 443
+    toPort: 443
+    ipProtocol: tcp
+    sourceSecurityGroupIdRef:
+      name: alb-security-group
+    securityGroupIdRef:
+      name: ec2-security-group
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  name: ec2-egress-all
+  namespace: crossplane-system
+spec:
+  forProvider:
+    type: egress
+    fromPort: 0
+    toPort: 0
+    ipProtocol: "-1"
+    cidrBlocks: 
+      - "0.0.0.0/0"
+    securityGroupIdRef:
+      name: ec2-security-group
     tags:
       demo: charlasCV
       author: SM
