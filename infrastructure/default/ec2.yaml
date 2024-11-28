@@ -33,6 +33,7 @@ metadata:
   namespace: crossplane-system
 spec:
   forProvider:
+    region: eu-west-3
     type: ingress
     fromPort: 80
     toPort: 80
@@ -53,6 +54,7 @@ metadata:
   namespace: crossplane-system
 spec:
   forProvider:
+    region: eu-west-3
     type: ingress
     fromPort: 443
     toPort: 443
@@ -73,6 +75,7 @@ metadata:
   namespace: crossplane-system
 spec:
   forProvider:
+    region: eu-west-3
     type: ingress
     fromPort: 80
     toPort: 80
@@ -93,6 +96,7 @@ metadata:
   namespace: crossplane-system
 spec:
   forProvider:
+    region: eu-west-3
     type: ingress
     fromPort: 443
     toPort: 443
@@ -113,6 +117,7 @@ metadata:
   namespace: crossplane-system
 spec:
   forProvider:
+    region: eu-west-3
     type: egress
     fromPort: 0
     toPort: 0
