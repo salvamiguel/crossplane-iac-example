@@ -187,7 +187,7 @@ spec:
     type: application
     region: eu-west-3
     securityGroupRefs:
-      name: alb-security-group
+      - name: alb-security-group
     tags:
       demo: charlasCV
       author: SM
