@@ -193,22 +193,23 @@ spec:
       author: SM
       type: crossplane-argocd
 ---
-# apiVersion: elbv2.aws.upbound.io/v1beta1
-# kind: Listener
-# metadata:
-#   name: alb-listener-http
-#   namespace: crossplane-system
-# spec:
-#   forProvider:
-#     loadBalancerArn: {{ .metadata.name }}-application-load-balancer
-#     port: 80
-#     protocol: HTTP
-#     defaultActions:
-#       - type: forward
-#         forwardConfig:
-#           targetGroups:
-#             - targetGroupArn: {{ .metadata.name }}-ec2-target-group
-#     tags:
-#       demo: charlasCV
-#       author: SM
-#       type: crossplane-argocd
+apiVersion: elbv2.aws.upbound.io/v1beta1
+kind: LBListener
+metadata:
+  name: alb-listener-http
+  namespace: crossplane-system
+spec:
+  forProvider:
+    region: eu-west-3
+    loadBalancerArnRef:
+      - name: application-load-balancer
+    port: 80
+    protocol: HTTP
+    defaultAction:
+      - type: forward
+        targetGroupArnRef:
+          - name: crossplane-ec2-auto-scaling-group
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
