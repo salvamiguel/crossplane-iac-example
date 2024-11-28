@@ -10,16 +10,19 @@ spec:
       - fromPort: 80
         toPort: 80
         ipProtocol: tcp
-        cidrBlocks: ["0.0.0.0/0"]
+        cidrBlocks:
+          - "0.0.0.0/0"
       - fromPort: 443
         toPort: 443
         ipProtocol: tcp
-        cidrBlocks: ["0.0.0.0/0"]
+        cidrBlocks:
+          - "0.0.0.0/0"
     egress:
       - fromPort: 0
         toPort: 0
         ipProtocol: "-1"
-        cidrBlocks: ["0.0.0.0/0"]
+        cidrBlocks:
+          - "0.0.0.0/0"
     tags:
       demo: charlasCV
       author: SM
@@ -37,16 +40,19 @@ spec:
       - fromPort: 80
         toPort: 80
         ipProtocol: tcp
-        securityGroups: [{{ .metadata.name }}-alb-security-group]
+        securityGroups: 
+          - {{ .metadata.name }}-alb-security-group
       - fromPort: 443
         toPort: 443
         ipProtocol: tcp
-        securityGroups: [{{ .metadata.name }}-alb-security-group]
+        securityGroups: 
+          - {{ .metadata.name }}-alb-security-group
     egress:
       - fromPort: 0
         toPort: 0
         ipProtocol: "-1"
-        cidrBlocks: ["0.0.0.0/0"]
+        cidrBlocks: 
+          - "0.0.0.0/0"
     tags:
       demo: charlasCV
       author: SM
