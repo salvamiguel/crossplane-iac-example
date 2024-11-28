@@ -104,7 +104,7 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
     key: index.html
-    source: infrastructure/examples/s3-static-web/html/index.html
+    source: ./html/index.html
     region: eu-west-3
     tags:
       demo: charlasCV
