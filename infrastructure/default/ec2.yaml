@@ -11,20 +11,21 @@ spec:
       demo: charlasCV
       author: SM
       type: crossplane-argocd
-# ---
-# apiVersion: ec2.aws.upbound.io/v1beta1
-# kind: SecurityGroup
-# metadata:
-#   name: ec2-security-group
-#   namespace: crossplane-system
-# spec:
-#   forProvider:
-#     description: EC2 Security Group
-#     tags:
-#       demo: charlasCV
-#       author: SM
-#       type: crossplane-argocd
-# ---
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroup
+metadata:
+  name: ec2-security-group
+  namespace: crossplane-system
+spec:
+  forProvider:
+    description: EC2 Security Group
+    region: eu-west-3
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
 # apiVersion: ec2.aws.upbound.io/v1beta1
 # kind: SecurityGroupRule
 # metadata:
