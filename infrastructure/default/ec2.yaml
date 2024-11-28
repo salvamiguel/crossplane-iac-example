@@ -6,7 +6,6 @@ metadata:
 spec:
   forProvider:
     description: ALB Security Group
-    vpcId: <vpc-id>
     ingress:
       - fromPort: 80
         toPort: 80
