@@ -158,7 +158,7 @@ spec:
       type: crossplane-argocd
 ---
 apiVersion: autoscaling.aws.upbound.io/v1beta1
-kind: AutoScalingGroup
+kind: AutoscalingGroup
 metadata:
   name: crossplane-ec2-auto-scaling-group
   namespace: crossplane-system
