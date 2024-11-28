@@ -153,9 +153,9 @@ spec:
         systemctl start httpd
         systemctl enable httpd
     tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
+      - demo: charlasCV
+      - author: SM
+      - type: crossplane-argocd
 ---
 apiVersion: autoscaling.aws.upbound.io/v1beta1
 kind: AutoscalingGroup
