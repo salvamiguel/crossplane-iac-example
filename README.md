@@ -13,7 +13,7 @@ Follow instrucctions on the workshop repository. If you don't have time for that
 source:
     repoURL: https://github.com/salvamiguel/crossplane-iac-example #
     targetRevision: HEAD
-    path: infrastructure/examples/s3 #Choose between s3, eks and ha-ec2 examples.
+    path: infrastructure/examples/s3-static-web #Choose between s3-static-web, eks and ha-ec2 examples.
 ```
 
 For each example you have a README file that explains the Infrastructure to be deployed.
