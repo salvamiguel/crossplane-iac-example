@@ -157,25 +157,25 @@ spec:
       author: SM
       type: crossplane-argocd
 ---
-# apiVersion: autoscaling.aws.upbound.io/v1beta1
-# kind: AutoScalingGroup
-# metadata:
-#   name: crossplane-ec2-auto-scaling-group
-#   namespace: crossplane-system
-# spec:
-#   forProvider:
-#     autoScalingGroupName: crossplane-ec2-auto-scaling-group
-#     minSize: 2
-#     maxSize: 5
-#     desiredCapacity: 2
-#     launchTemplate:
-#       launchTemplateName: crossplane-ec2-launch-template
-#       version: "$Latest"
-#     tags:
-#       demo: charlasCV
-#       author: SM
-#       type: crossplane-argocd
-# ---
+apiVersion: autoscaling.aws.upbound.io/v1beta1
+kind: AutoScalingGroup
+metadata:
+  name: crossplane-ec2-auto-scaling-group
+  namespace: crossplane-system
+spec:
+  forProvider:
+    region: eu-west-3
+    autoScalingGroupName: crossplane-ec2-auto-scaling-group
+    minSize: 2
+    maxSize: 5
+    desiredCapacity: 2
+    launchTemplate:
+      name: crossplane-ec2-launch-template
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
 # apiVersion: elbv2.aws.upbound.io/v1beta1
 # kind: LoadBalancer
 # metadata:
