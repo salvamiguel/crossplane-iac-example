@@ -144,8 +144,8 @@ spec:
     launchTemplateData:
       instanceType: t3.micro
       imageId: resolve:ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64
-      securityGroupIds:
-        - {{ .metadata.name }}-ec2-security-group
+      securityGroupNameRef:
+        name: ec2-security-group
       userData: |
         #!/bin/bash
         yum install -y httpd
