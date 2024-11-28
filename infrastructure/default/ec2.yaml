@@ -152,6 +152,10 @@ spec:
         echo "<h1>Hello from $(hostname)</h1>" > /var/www/html/index.html
         systemctl start httpd
         systemctl enable httpd
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
 ---
 apiVersion: autoscaling.aws.upbound.io/v1beta1
 kind: AutoscalingGroup
@@ -168,9 +172,9 @@ spec:
     launchTemplate:
       - name: crossplane-ec2-launch-template
     tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
+      - demo: charlasCV
+      - author: SM
+      - type: crossplane-argocd
 ---
 # apiVersion: elbv2.aws.upbound.io/v1beta1
 # kind: LoadBalancer
