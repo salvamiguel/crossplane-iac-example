@@ -97,7 +97,7 @@ metadata:
     meta.upbound.io/example-id: s3/v1beta1/bucketobject
   labels:
     testing.upbound.io/example-name: object
-  name: object
+  name: file-index.html
 spec:
   forProvider:
     bucketSelector:
@@ -118,7 +118,7 @@ metadata:
     meta.upbound.io/example-id: s3/v1beta1/bucketobject
   labels:
     testing.upbound.io/example-name: object
-  name: object
+  name: file-error.html
 spec:
   forProvider:
     bucketSelector:
@@ -139,7 +139,7 @@ metadata:
     meta.upbound.io/example-id: s3/v1beta1/bucketobject
   labels:
     testing.upbound.io/example-name: object
-  name: object
+  name: file-diagram.png
 spec:
   forProvider:
     bucketSelector:
