@@ -173,7 +173,8 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
     key: img/diagram.html
-    source: infrastructure/examples/s3-static-web/img/diagram.png
+    source: ../img/diagram.png
+    contentType: image/png
     region: eu-west-3
     tags:
       demo: charlasCV
