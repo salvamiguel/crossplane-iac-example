@@ -6,6 +6,7 @@ metadata:
 spec:
   forProvider:
     description: ALB Security Group
+    region: eu-west-3
     tags:
       demo: charlasCV
       author: SM
