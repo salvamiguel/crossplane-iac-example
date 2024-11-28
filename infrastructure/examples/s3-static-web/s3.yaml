@@ -104,7 +104,20 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
     key: index.html
-    source: crossplane-iac-example/infrastructure/examples/s3-static-web/html/index.html
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Crossplane + ArgoCD Workshop</title>
+      </head>
+      <body>
+          <h1 style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Hello IES Juan de Garay!</h1>
+          <img src="/img/diagram.png" width="600px" style="display: block;margin: auto;">
+          <p style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Congratulations! You have just deployed your first s3 static website using Crossplane + ArgoCD!</p>
+      </body>
+      </html>
     region: eu-west-3
     tags:
       demo: charlasCV
@@ -125,7 +138,19 @@ spec:
       matchLabels:
         testing.upbound.io/example-name: salvamiguel-crossplane-argocd-bucket
     key: error.html
-    source: infrastructure/examples/s3-static-web/html/error.html
+    content: |
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>404: Error page</title>
+      </head>
+      <body>
+          <h1 style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">404: This page does not exist</h1>
+          <p style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Congratulations! You have just deployed your first s3 static website using Crossplane + ArgoCD!</p>
+      </body>
+      </html>
     region: eu-west-3
     tags:
       demo: charlasCV
