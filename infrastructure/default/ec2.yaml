@@ -202,13 +202,13 @@ spec:
   forProvider:
     region: eu-west-3
     loadBalancerArnRef:
-      - name: application-load-balancer
+      name: application-load-balancer
     port: 80
     protocol: HTTP
     defaultAction:
       - type: forward
         targetGroupArnRef:
-          - name: crossplane-ec2-auto-scaling-group
+          name: crossplane-ec2-auto-scaling-group
     tags:
       demo: charlasCV
       author: SM
