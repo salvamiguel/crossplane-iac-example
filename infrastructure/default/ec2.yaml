@@ -37,7 +37,7 @@ spec:
     type: ingress
     fromPort: 80
     toPort: 80
-    ipProtocol: tcp
+    protocol: tcp
     cidrBlocks:
       - "0.0.0.0/0"
     securityGroupIdRef:
@@ -58,7 +58,7 @@ spec:
     type: ingress
     fromPort: 443
     toPort: 443
-    ipProtocol: tcp
+    protocol: tcp
     cidrBlocks:
       - "0.0.0.0/0"
     securityGroupIdRef:
@@ -79,7 +79,7 @@ spec:
     type: ingress
     fromPort: 80
     toPort: 80
-    ipProtocol: tcp
+    protocol: tcp
     sourceSecurityGroupIdRef:
       name: alb-security-group
     securityGroupIdRef:
@@ -100,7 +100,7 @@ spec:
     type: ingress
     fromPort: 443
     toPort: 443
-    ipProtocol: tcp
+    protocol: tcp
     sourceSecurityGroupIdRef:
       name: alb-security-group
     securityGroupIdRef:
@@ -121,7 +121,7 @@ spec:
     type: egress
     fromPort: 0
     toPort: 0
-    ipProtocol: "-1"
+    protocol: "-1"
     cidrBlocks:
       - "0.0.0.0/0"
     securityGroupIdRef:
