@@ -190,8 +190,7 @@ metadata:
 spec:
   forProvider:
     availabilityZones:
-      - euw3-az1
-      - euw3-az2
+      - eu-west-3c
     region: eu-west-3
     minSize: 2
     maxSize: 5
