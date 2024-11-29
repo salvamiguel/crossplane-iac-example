@@ -139,7 +139,7 @@ metadata:
 spec:
   forProvider:
     region: eu-west-3
-    launchTemplateName: crossplane-ec2-launch-template
+    name: crossplane-ec2-launch-template
     versionDescription: "Initial version"
     launchTemplateData:
       instanceType: t3.micro
@@ -153,6 +153,7 @@ spec:
         systemctl start httpd
         systemctl enable httpd
     tags:
+      Name: crossplane-ec2-launch-template
       demo: charlasCV
       author: SM
       type: crossplane-argocd
