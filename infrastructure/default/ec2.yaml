@@ -7,7 +7,9 @@ spec:
   forProvider:
     description: ALB Security Group
     region: eu-west-3
+    name: alb-security-group
     tags:
+      Name: alb-security-group
       demo: charlasCV
       author: SM
       type: crossplane-argocd
@@ -21,7 +23,9 @@ spec:
   forProvider:
     description: EC2 Security Group
     region: eu-west-3
+    name: ec2-security-group
     tags:
+      Name: ec2-security-group
       demo: charlasCV
       author: SM
       type: crossplane-argocd
