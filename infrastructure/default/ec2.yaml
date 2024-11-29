@@ -171,7 +171,8 @@ spec:
     maxSize: 5
     desiredCapacity: 2
     launchTemplate:
-      - name: crossplane-ec2-launch-template
+      - idRef:
+          name: crossplane-ec2-launch-template
     tags:
       - demo: charlasCV
       - author: SM
