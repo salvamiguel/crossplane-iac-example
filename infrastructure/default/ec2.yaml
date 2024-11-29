@@ -167,7 +167,7 @@ spec:
   forProvider:
     region: eu-west-3
     instanceType: t3.micro
-    imageId: resolve:ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64
+    imageId: ami-03216a20ecc5d72ee
     securityGroupRefs:
       - name: ec2-security-group
     userData: |
