@@ -217,6 +217,9 @@ spec:
     region: eu-west-3
     securityGroupRefs:
       - name: alb-security-group
+    subnets:
+      - subnet-0a5969dabf479019b
+      - subnet-3e96d673
     tags:
       demo: charlasCV
       author: SM
@@ -234,9 +237,6 @@ spec:
       name: application-load-balancer
     port: 80
     protocol: HTTP
-    subnets:
-      - subnet-0a5969dabf479019b
-      - subnet-3e96d673
     defaultAction:
       - type: forward
         targetGroupArnRef:
