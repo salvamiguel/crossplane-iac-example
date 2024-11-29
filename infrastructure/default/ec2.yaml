@@ -172,8 +172,8 @@ spec:
     region: eu-west-3
     instanceType: t3.micro
     imageId: ami-03216a20ecc5d72ee
-    securityGroupRefs:
-      - name: ec2-security-group
+    securityGroups:
+      - ec2-security-group
     userData: |
       #!/bin/bash
       yum install -y httpd
