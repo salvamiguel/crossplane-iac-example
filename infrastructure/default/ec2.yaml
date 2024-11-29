@@ -189,6 +189,9 @@ metadata:
   namespace: crossplane-system
 spec:
   forProvider:
+    availabilityZones:
+      - eu-west-3a
+      - eu-west-3b
     region: eu-west-3
     minSize: 2
     maxSize: 5
