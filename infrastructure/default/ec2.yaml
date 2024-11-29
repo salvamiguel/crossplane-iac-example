@@ -200,6 +200,10 @@ spec:
     maxSize: 5
     desiredCapacity: 2
     launchConfiguration: crossplane-ec2-launch-configuration
+    tag:
+      - key: Name
+        value: crossplane-argocd-static-web-ec2
+        propagateAtLaunch: true
     tags:
       - demo: charlasCV
       - author: SM
@@ -208,11 +212,11 @@ spec:
 apiVersion: elbv2.aws.upbound.io/v1beta1
 kind: LB
 metadata:
-  name: application-load-balancer
+  name: crossplane-application-load-balancer
   namespace: crossplane-system
 spec:
   forProvider:
-    name: application-load-balancer
+    name: crossplane-application-load-balancer
     type: application
     region: eu-west-3
     securityGroupRefs:
@@ -225,6 +229,20 @@ spec:
       author: SM
       type: crossplane-argocd
 ---
+apiVersion: autoscaling.aws.upbound.io/v1beta2
+kind: Attachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: autoscaling/v1beta2/attachment
+  labels:
+    testing.upbound.io/example-name: example
+  name: crossplane-asg-elb-attachement
+spec:
+  forProvider:
+    autoscalingGroupName: crossplane-ec2-auto-scaling-group
+    elb: crossplane-application-load-balancer
+    region: eu-west-3
+---
 apiVersion: elbv2.aws.upbound.io/v1beta1
 kind: LBListener
 metadata:
@@ -234,13 +252,13 @@ spec:
   forProvider:
     region: eu-west-3
     loadBalancerArnRef:
-      name: application-load-balancer
+      name: crossplane-application-load-balancer
     port: 80
     protocol: HTTP
     defaultAction:
       - type: forward
         targetGroupArnRef:
-          name: crossplane-ec2-auto-scaling-group
+          name: crossplane-ec2-elb-target-group
     tags:
       demo: charlasCV
       author: SM
