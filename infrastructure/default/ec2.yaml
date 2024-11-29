@@ -212,11 +212,11 @@ spec:
 apiVersion: elbv2.aws.upbound.io/v1beta1
 kind: LB
 metadata:
-  name: crossplane-application-load-balancer
+  name: crossplane-alb
   namespace: crossplane-system
 spec:
   forProvider:
-    name: crossplane-application-load-balancer
+    name: crossplane-alb
     type: application
     region: eu-west-3
     securityGroupRefs:
@@ -240,7 +240,7 @@ metadata:
 spec:
   forProvider:
     autoscalingGroupName: crossplane-ec2-auto-scaling-group
-    elb: crossplane-application-load-balancer
+    elb: crossplane-alb
     region: eu-west-3
 ---
 apiVersion: elbv2.aws.upbound.io/v1beta1
@@ -252,7 +252,7 @@ spec:
   forProvider:
     region: eu-west-3
     loadBalancerArnRef:
-      name: crossplane-application-load-balancer
+      name: crossplane-alb
     port: 80
     protocol: HTTP
     defaultAction:
