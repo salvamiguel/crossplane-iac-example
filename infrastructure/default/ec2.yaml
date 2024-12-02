@@ -299,7 +299,7 @@ spec:
     port: 80
     protocol: HTTP
     region: eu-west-3
-    targetType: ip
+    targetType: instance
     vpcIdSelector:
       matchLabels:
         salvamiguel/crossplane-argocd-workshop: vpc
