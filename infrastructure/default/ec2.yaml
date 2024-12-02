@@ -256,9 +256,8 @@ metadata:
 spec:
   forProvider:
     vpcZoneIdentifierRefs:
-      name:
-        - crossplane-subnet-a
-        - crossplane-subnet-b
+      - name: crossplane-subnet-a
+      - name: crossplane-subnet-b
     region: eu-west-3
     minSize: 2
     maxSize: 5
