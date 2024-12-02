@@ -240,28 +240,6 @@ spec:
       type: crossplane-argocd
 ---
 apiVersion: autoscaling.aws.upbound.io/v1beta1
-kind: LaunchConfiguration
-metadata:
-  name: crossplane-ec2-launch-configuration
-  namespace: crossplane-system
-spec:
-  forProvider:
-    region: eu-west-3
-    instanceType: t3.micro
-    imageId: ami-03216a20ecc5d72ee
-    userData: |
-      #!/bin/bash
-      yum install -y httpd
-      echo "<h1>Hello from $(hostname)</h1>" > /var/www/html/index.html
-      systemctl start httpd
-      systemctl enable httpd
-    tags:
-      Name: crossplane-ec2-launch-configuration
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: autoscaling.aws.upbound.io/v1beta1
 kind: AutoscalingGroup
 metadata:
   name: crossplane-ec2-auto-scaling-group
@@ -304,23 +282,32 @@ spec:
       - name: crossplane-argocd-subnet-1
       - name: crossplane-argocd-subnet-2
     tags:
+      Name: crossplane-alb
       demo: charlasCV
       author: SM
       type: crossplane-argocd
 ---
-apiVersion: autoscaling.aws.upbound.io/v1beta2
-kind: Attachment
+apiVersion: elbv2.aws.upbound.io/v1beta1
+kind: LBTargetGroup
 metadata:
-  annotations:
-    meta.upbound.io/example-id: autoscaling/v1beta2/attachment
   labels:
-    testing.upbound.io/example-name: example
-  name: crossplane-asg-elb-attachement
+    testing.upbound.io/example-name: elbv2
+  name: crossplane-target-group
 spec:
   forProvider:
-    autoscalingGroupName: crossplane-ec2-auto-scaling-group
-    elb: crossplane-alb
+    name: crossplane-target-group
+    port: 80
+    protocol: HTTP
     region: eu-west-3
+    targetType: ip
+    vpcIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: vpc
+    tags:
+      Name: crossplane-target-group
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
 ---
 apiVersion: elbv2.aws.upbound.io/v1beta1
 kind: LBListener
@@ -337,7 +324,7 @@ spec:
     defaultAction:
       - type: forward
         targetGroupArnRef:
-          name: crossplane-ec2-elb-target-group
+          name: crossplane-target-group
     tags:
       demo: charlasCV
       author: SM
