@@ -262,7 +262,7 @@ spec:
     desiredCapacity: 2
     launchConfiguration: crossplane-ec2-launch-configuration
     launchTemplate:
-      idRef:
+      - idRef:
         name: crossplane-ec2-launch-template
     tag:
       - key: Name
