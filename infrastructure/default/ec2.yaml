@@ -329,3 +329,22 @@ spec:
       demo: charlasCV
       author: SM
       type: crossplane-argocd
+---
+apiVersion: autoscaling.aws.upbound.io/v1beta2
+kind: Attachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: autoscaling/v1beta2/attachment
+  labels:
+    testing.upbound.io/example-name: example
+  name: crossplane-attachment-asg-elb
+spec:
+  forProvider:
+    autoscalingGroupName: crossplane-ec2-auto-scaling-group
+    lbTargetGroupArnRef:
+      name: crossplane-target-group
+    region: eu-west-3
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
