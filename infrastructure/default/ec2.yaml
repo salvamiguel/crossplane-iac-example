@@ -9,7 +9,7 @@ spec:
     cidrBlock: 10.1.0.0/24
     region: eu-west-3
     tags:
-      Name: CrossplaneDemoVpc
+      Name: crossplane-argocd-vpc
       demo: charlasCV
       author: SM
       type: crossplane-argocd
@@ -53,6 +53,21 @@ spec:
       demo: charlasCV
       author: SM
       type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: InternetGateway
+metadata:
+  name: crossplane-argocd-internet-gw
+spec:
+  forProvider:
+    region: eu-west-3
+    tags:
+      Name: crossplane-argocd-internet-gw
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+    vpcIdRef:
+      name: crossplane-argocd-vpc
 ---
 apiVersion: ec2.aws.upbound.io/v1beta1
 kind: SecurityGroup
