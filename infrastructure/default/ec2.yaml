@@ -285,13 +285,9 @@ spec:
     region: eu-west-3
     securityGroupRefs:
       - name: alb-security-group
-    subnetMapping:
-      - subnetIdSelector:
-          matchLabels:
-            salvamiguel/crossplane-argocd-workshop: subnet-a
-      - subnetIdSelector:
-          matchLabels:
-            salvamiguel/crossplane-argocd-workshop: subnet-b
+    subnetRefs:
+      - name: crossplane-argocd-subnet-1
+      - name: crossplane-argocd-subnet-2
     tags:
       demo: charlasCV
       author: SM
