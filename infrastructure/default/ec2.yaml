@@ -255,10 +255,10 @@ metadata:
   namespace: crossplane-system
 spec:
   forProvider:
-    vpcZoneIdentifierSelector:
-      matchLabels:
-        - salvamiguel/crossplane-argocd-workshop: subnet-a
-        - salvamiguel/crossplane-argocd-workshop: subnet-b
+    vpcZoneIdentifierRefs:
+      name:
+        - crossplane-subnet-a
+        - crossplane-subnet-b
     region: eu-west-3
     minSize: 2
     maxSize: 5
