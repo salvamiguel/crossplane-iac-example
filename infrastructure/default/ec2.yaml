@@ -29,7 +29,7 @@ spec:
       matchLabels:
         salvamiguel/crossplane-argocd-workshop: vpc
     tags:
-      Name: crossplane-subnet-b
+      Name: crossplane-subnet-a
       demo: charlasCV
       author: SM
       type: crossplane-argocd
@@ -234,8 +234,6 @@ spec:
     region: eu-west-3
     instanceType: t3.micro
     imageId: ami-03216a20ecc5d72ee
-    securityGroups:
-      - ec2-security-group
     userData: |
       #!/bin/bash
       yum install -y httpd
@@ -263,6 +261,9 @@ spec:
     maxSize: 5
     desiredCapacity: 2
     launchConfiguration: crossplane-ec2-launch-configuration
+    launchTemplate:
+      idRef:
+        name: crossplane-ec2-launch-template
     tag:
       - key: Name
         value: crossplane-argocd-static-web-ec2
