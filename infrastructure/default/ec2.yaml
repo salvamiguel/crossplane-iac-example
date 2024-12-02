@@ -253,7 +253,6 @@ spec:
     minSize: 2
     maxSize: 5
     desiredCapacity: 2
-    launchConfiguration: crossplane-ec2-launch-configuration
     launchTemplate:
       - idRef:
         name: crossplane-ec2-launch-template
