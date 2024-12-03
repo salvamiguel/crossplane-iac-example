@@ -265,6 +265,12 @@ spec:
       - key: Name
         value: crossplane-argocd-static-web-ec2
         propagateAtLaunch: true
+      - key: demo
+        value: charlasCV
+        propagateAtLaunch: true
+      - key: type
+        value: crossplane-argocd
+        propagateAtLaunch: true
     tags:
       - demo: charlasCV
       - author: SM
