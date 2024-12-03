@@ -114,7 +114,7 @@ spec:
 apiVersion: ec2.aws.upbound.io/v1beta1
 kind: SecurityGroupRule
 metadata:
-  name: alb-ingress-http
+  name: alb-egress-http
   namespace: crossplane-system
 spec:
   forProvider:
