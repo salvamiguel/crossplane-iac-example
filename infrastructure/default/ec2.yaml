@@ -274,9 +274,9 @@ spec:
     desiredCapacity: 2
     launchConfiguration: crossplane-ec2-launch-configuration
     launchTemplate:
-      - idSelector:
-          matchLabel:
-            salvamiguel/crossplane-argocd-workshop: launch-template
+      idSelector:
+        matchLabel:
+          salvamiguel/crossplane-argocd-workshop: launch-template
     tag:
       - key: Name
         value: crossplane-argocd-static-web-ec2
