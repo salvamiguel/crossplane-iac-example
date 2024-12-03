@@ -258,7 +258,7 @@ spec:
       author: SM
       type: crossplane-argocd
 ---
-apiVersion: autoscaling.aws.upbound.io/v1beta1
+apiVersion: autoscaling.aws.upbound.io/v1beta3
 kind: AutoscalingGroup
 metadata:
   name: crossplane-ec2-auto-scaling-group
