@@ -236,28 +236,6 @@ spec:
       author: SM
       type: crossplane-argocd
 ---
-apiVersion: autoscaling.aws.upbound.io/v1beta1
-kind: LaunchConfiguration
-metadata:
-  name: crossplane-ec2-launch-configuration
-  namespace: crossplane-system
-spec:
-  forProvider:
-    region: eu-west-3
-    instanceType: t3.micro
-    imageId: ami-03216a20ecc5d72ee
-    userData: |
-      #!/bin/bash
-      yum install -y httpd
-      echo "<h1>Hello from $(hostname)</h1>" > /var/www/html/index.html
-      systemctl start httpd
-      systemctl enable httpd
-    tags:
-      Name: crossplane-ec2-launch-configuration
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
 apiVersion: autoscaling.aws.upbound.io/v1beta3
 kind: AutoscalingGroup
 metadata:
@@ -272,7 +250,6 @@ spec:
     minSize: 2
     maxSize: 5
     desiredCapacity: 2
-    launchConfiguration: crossplane-ec2-launch-configuration
     launchTemplate:
       idSelector:
         matchLabel:
