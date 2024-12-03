@@ -212,7 +212,7 @@ spec:
       author: SM
       type: crossplane-argocd
 ---
-apiVersion: ec2.aws.upbound.io/v1beta1
+apiVersion: ec2.aws.upbound.io/v1beta2
 kind: LaunchTemplate
 metadata:
   name: crossplane-ec2-launch-template
@@ -226,8 +226,8 @@ spec:
     versionDescription: "Initial version"
     instanceType: t3.micro
     imageId: ami-03216a20ecc5d72ee
-    securityGroupNameRef:
-      name: ec2-security-group
+    securityGroupRefs:
+      - name: ec2-security-group
     userData: |
       IyEvYmluL2Jhc2gKeXVtIGluc3RhbGwgLXkgaHR0cGQKZWNobyAiPGgxPkhlbGxvIGZyb20gJChob3N0bmFtZSk8L2gxPiIgPiAvdmFyL3d3dy9odG1sL2luZGV4Lmh0bWwKc3lzdGVtY3RsIHN0YXJ0IGh0dHBkCnN5c3RlbWN0bCBlbmFibGUgaHR0cGQ=
     tags:
