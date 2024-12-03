@@ -249,8 +249,7 @@ spec:
     maxSize: 5
     desiredCapacity: 2
     launchTemplate:
-      - idRef:
-          name: crossplane-ec2-launch-template
+      - name: crossplane-ec2-launch-template
     tag:
       - key: Name
         value: crossplane-argocd-static-web-ec2
