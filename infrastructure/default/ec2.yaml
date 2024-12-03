@@ -119,7 +119,7 @@ metadata:
 spec:
   forProvider:
     region: eu-west-3
-    type: ingress
+    type: egress
     fromPort: 80
     toPort: 80
     protocol: tcp
