@@ -249,7 +249,7 @@ spec:
     maxSize: 5
     desiredCapacity: 2
     launchTemplate:
-      - idRef:
+      idRef:
         name: crossplane-ec2-launch-template
     tag:
       - key: Name
