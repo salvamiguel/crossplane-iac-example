@@ -217,6 +217,8 @@ kind: LaunchTemplate
 metadata:
   name: crossplane-ec2-launch-template
   namespace: crossplane-system
+  labels:
+    salvamiguel/crossplane-argocd-workshop: launch-template
 spec:
   forProvider:
     region: eu-west-3
@@ -272,7 +274,9 @@ spec:
     desiredCapacity: 2
     launchConfiguration: crossplane-ec2-launch-configuration
     launchTemplate:
-      - name: crossplane-ec2-launch-template
+      - idSelector:
+          matchLabel:
+            salvamiguel/crossplane-argocd-workshop: launch-template
     tag:
       - key: Name
         value: crossplane-argocd-static-web-ec2
