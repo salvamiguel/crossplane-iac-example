@@ -372,7 +372,7 @@ spec:
           matchLabels:
             salvamiguel/crossplane-argocd-workshop: ec2-sg
     userData: |
-      IyEvYmluL2Jhc2gKeXVtIGluc3RhbGwgLXkgaHR0cGQKZWNobyAiPGgxPkhlbGxvIGZyb20gJChob3N0bmFtZSk8L2gxPiIgPiAvdmFyL3d3dy9odG1sL2luZGV4Lmh0bWwKc3lzdGVtY3RsIHN0YXJ0IGh0dHBkCnN5c3RlbWN0bCBlbmFibGUgaHR0cGQ=
+      IyEvYmluL2Jhc2gKc3VkbyBzeXN0ZW1jdGwgZW5hYmxlIGFtYXpvbi1zc20tYWdlbnQKc3VkbyBzeXN0ZW1jdGwgc3RhcnQgYW1hem9uLXNzbS1hZ2VudAp5dW0gaW5zdGFsbCAteSBodHRwZAplY2hvICI8aDE+SGVsbG8gZnJvbSAkKGhvc3RuYW1lKTwvaDE+IiA+IC92YXIvd3d3L2h0bWwvaW5kZXguaHRtbApzeXN0ZW1jdGwgc3RhcnQgaHR0cGQKc3lzdGVtY3RsIGVuYWJsZSBodHRwZA==
     tags:
       Name: crossplane-ec2-launch-template
       demo: charlasCV
