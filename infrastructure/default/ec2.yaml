@@ -55,46 +55,6 @@ spec:
       type: crossplane-argocd
 ---
 apiVersion: ec2.aws.upbound.io/v1beta1
-kind: Subnet
-metadata:
-  labels:
-    salvamiguel/crossplane-argocd-workshop: subnet-c
-  name: crossplane-argocd-subnet-3
-spec:
-  forProvider:
-    availabilityZone: eu-west-3a
-    cidrBlock: 10.1.0.32/28
-    region: eu-west-3
-    vpcIdSelector:
-      matchLabels:
-        salvamiguel/crossplane-argocd-workshop: vpc
-    tags:
-      Name: crossplane-subnet-c
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: Subnet
-metadata:
-  labels:
-    salvamiguel/crossplane-argocd-workshop: subnet-d
-  name: crossplane-argocd-subnet-4
-spec:
-  forProvider:
-    availabilityZone: eu-west-3b
-    cidrBlock: 10.1.0.64/28
-    region: eu-west-3
-    vpcIdSelector:
-      matchLabels:
-        salvamiguel/crossplane-argocd-workshop: vpc
-    tags:
-      Name: crossplane-subnet-d
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: ec2.aws.upbound.io/v1beta1
 kind: InternetGateway
 metadata:
   name: crossplane-argocd-internet-gw
@@ -166,7 +126,7 @@ spec:
         salvamiguel/crossplane-argocd-workshop: route-table
     subnetIdSelector:
       matchLabels:
-        salvamiguel/crossplane-argocd-workshop: subnet-c
+        salvamiguel/crossplane-argocd-workshop: subnet-a
 ---
 apiVersion: ec2.aws.upbound.io/v1beta1
 kind: RouteTableAssociation
@@ -182,7 +142,7 @@ spec:
         salvamiguel/crossplane-argocd-workshop: route-table
     subnetIdSelector:
       matchLabels:
-        salvamiguel/crossplane-argocd-workshop: subnet-d
+        salvamiguel/crossplane-argocd-workshop: subnet-b
 ---
 apiVersion: ec2.aws.upbound.io/v1beta1
 kind: SecurityGroup
@@ -250,27 +210,6 @@ spec:
 apiVersion: ec2.aws.upbound.io/v1beta1
 kind: SecurityGroupRule
 metadata:
-  name: alb-ingress-https
-  namespace: crossplane-system
-spec:
-  forProvider:
-    region: eu-west-3
-    type: ingress
-    fromPort: 443
-    toPort: 443
-    protocol: tcp
-    cidrBlocks:
-      - "0.0.0.0/0"
-    securityGroupIdRef:
-      name: alb-security-group
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: SecurityGroupRule
-metadata:
   name: alb-ingress-http
   namespace: crossplane-system
 spec:
@@ -300,27 +239,6 @@ spec:
     type: ingress
     fromPort: 80
     toPort: 80
-    protocol: tcp
-    sourceSecurityGroupIdRef:
-      name: alb-security-group
-    securityGroupIdRef:
-      name: ec2-security-group
-    tags:
-      demo: charlasCV
-      author: SM
-      type: crossplane-argocd
----
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: SecurityGroupRule
-metadata:
-  name: ec2-ingress-https
-  namespace: crossplane-system
-spec:
-  forProvider:
-    region: eu-west-3
-    type: ingress
-    fromPort: 443
-    toPort: 443
     protocol: tcp
     sourceSecurityGroupIdRef:
       name: alb-security-group
@@ -368,6 +286,7 @@ spec:
     imageId: ami-03216a20ecc5d72ee
     networkInterfaces:
       - deviceIndex: 0
+        associatePublicIpAddress: true
         securityGroupSelector:
           matchLabels:
             salvamiguel/crossplane-argocd-workshop: ec2-sg
@@ -425,8 +344,8 @@ spec:
     securityGroupRefs:
       - name: alb-security-group
     subnetRefs:
+      - name: crossplane-argocd-subnet-1
       - name: crossplane-argocd-subnet-2
-      - name: crossplane-argocd-subnet-3
     tags:
       Name: crossplane-alb
       demo: charlasCV
