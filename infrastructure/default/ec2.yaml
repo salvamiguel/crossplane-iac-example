@@ -156,8 +156,8 @@ apiVersion: ec2.aws.upbound.io/v1beta1
 kind: RouteTableAssociation
 metadata:
   labels:
-    salvamiguel/crossplane-argocd-workshop: rta
-  name: rta
+    salvamiguel/crossplane-argocd-workshop: rta-1
+  name: rta-1
 spec:
   forProvider:
     region: eu-west-3
@@ -175,8 +175,8 @@ apiVersion: ec2.aws.upbound.io/v1beta1
 kind: RouteTableAssociation
 metadata:
   labels:
-    salvamiguel/crossplane-argocd-workshop: rta
-  name: rta
+    salvamiguel/crossplane-argocd-workshop: rta-2
+  name: rta-2
 spec:
   forProvider:
     region: eu-west-3
