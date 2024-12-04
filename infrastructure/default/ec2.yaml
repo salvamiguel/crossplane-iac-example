@@ -271,6 +271,27 @@ spec:
 apiVersion: ec2.aws.upbound.io/v1beta1
 kind: SecurityGroupRule
 metadata:
+  name: alb-ingress-http
+  namespace: crossplane-system
+spec:
+  forProvider:
+    region: eu-west-3
+    type: ingress
+    fromPort: 80
+    toPort: 80
+    protocol: tcp
+    cidrBlocks:
+      - "0.0.0.0/0"
+    securityGroupIdRef:
+      name: alb-security-group
+    tags:
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
   name: ec2-ingress-http
   namespace: crossplane-system
 spec:
