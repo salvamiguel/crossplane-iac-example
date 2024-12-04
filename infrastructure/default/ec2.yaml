@@ -55,9 +55,51 @@ spec:
       type: crossplane-argocd
 ---
 apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  labels:
+    salvamiguel/crossplane-argocd-workshop: subnet-c
+  name: crossplane-argocd-subnet-3
+spec:
+  forProvider:
+    availabilityZone: eu-west-3a
+    cidrBlock: 10.1.0.32/28
+    region: eu-west-3
+    vpcIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: vpc
+    tags:
+      Name: crossplane-subnet-c
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  labels:
+    salvamiguel/crossplane-argocd-workshop: subnet-d
+  name: crossplane-argocd-subnet-4
+spec:
+  forProvider:
+    availabilityZone: eu-west-3b
+    cidrBlock: 10.1.0.64/28
+    region: eu-west-3
+    vpcIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: vpc
+    tags:
+      Name: crossplane-subnet-d
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
 kind: InternetGateway
 metadata:
   name: crossplane-argocd-internet-gw
+  labels:
+    salvamiguel/crossplane-argocd-workshop: igw
 spec:
   forProvider:
     region: eu-west-3
@@ -66,8 +108,87 @@ spec:
       demo: charlasCV
       author: SM
       type: crossplane-argocd
-    vpcIdRef:
-      name: crossplane-argocd-vpc
+    vpcIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTable
+metadata:
+  labels:
+    salvamiguel/crossplane-argocd-workshop: route-table
+  name: route-table
+spec:
+  forProvider:
+    region: eu-west-3
+    tags:
+      Name: crossplane-route-table
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+    vpcIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta2
+kind: Route
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta2/route
+  name: route
+spec:
+  forProvider:
+    destinationCidrBlock: 0.0.0.0/0
+    gatewayIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: igw
+    region: eu-west-3
+    routeTableIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: route-table
+    tags:
+      Name: crossplane-route
+      demo: charlasCV
+      author: SM
+      type: crossplane-argocd
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTableAssociation
+metadata:
+  labels:
+    salvamiguel/crossplane-argocd-workshop: rta
+  name: rta
+spec:
+  forProvider:
+    region: eu-west-3
+    gatewayIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: igw
+    routeTableIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: route-table
+    subnetIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: subnet-c
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTableAssociation
+metadata:
+  labels:
+    salvamiguel/crossplane-argocd-workshop: rta
+  name: rta
+spec:
+  forProvider:
+    region: eu-west-3
+    gatewayIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: igw
+    routeTableIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: route-table
+    subnetIdSelector:
+      matchLabels:
+        salvamiguel/crossplane-argocd-workshop: subnet-d
 ---
 apiVersion: ec2.aws.upbound.io/v1beta1
 kind: SecurityGroup
@@ -289,8 +410,8 @@ spec:
     securityGroupRefs:
       - name: alb-security-group
     subnetRefs:
-      - name: crossplane-argocd-subnet-1
       - name: crossplane-argocd-subnet-2
+      - name: crossplane-argocd-subnet-3
     tags:
       Name: crossplane-alb
       demo: charlasCV
