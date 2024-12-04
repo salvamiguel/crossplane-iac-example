@@ -161,9 +161,6 @@ metadata:
 spec:
   forProvider:
     region: eu-west-3
-    gatewayIdSelector:
-      matchLabels:
-        salvamiguel/crossplane-argocd-workshop: igw
     routeTableIdSelector:
       matchLabels:
         salvamiguel/crossplane-argocd-workshop: route-table
@@ -180,9 +177,6 @@ metadata:
 spec:
   forProvider:
     region: eu-west-3
-    gatewayIdSelector:
-      matchLabels:
-        salvamiguel/crossplane-argocd-workshop: igw
     routeTableIdSelector:
       matchLabels:
         salvamiguel/crossplane-argocd-workshop: route-table
