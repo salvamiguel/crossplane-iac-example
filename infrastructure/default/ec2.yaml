@@ -286,6 +286,7 @@ spec:
     imageId: ami-03216a20ecc5d72ee
     networkInterfaces:
       - deviceIndex: 0
+        associatePublicIpAddress: "true"
         securityGroupSelector:
           matchLabels:
             salvamiguel/crossplane-argocd-workshop: ec2-sg
