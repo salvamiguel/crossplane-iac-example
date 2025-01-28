@@ -309,7 +309,7 @@ spec:
       - name: crossplane-argocd-subnet-1
       - name: crossplane-argocd-subnet-2
     region: eu-west-3
-    minSize: 3
+    minSize: 2
     maxSize: 5
     desiredCapacity: 2
     launchTemplate:
