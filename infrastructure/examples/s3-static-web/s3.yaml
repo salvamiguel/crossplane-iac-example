@@ -113,7 +113,7 @@ spec:
           <title>Crossplane + ArgoCD Workshop</title>
       </head>
       <body>
-          <h1 style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Hello IES Álvaro Falomir!</h1>
+          <h1 style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Hello from the Cloud!</h1>
           <img src="diagram.png" width="600px" style="display: block;margin: auto;">
           <p style="text-align: center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Congratulations! You have just deployed your first s3 static website using Crossplane + ArgoCD!</p>
       </body>
